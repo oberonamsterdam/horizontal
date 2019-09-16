@@ -1,0 +1,9 @@
+{
+    "extends": [
+        "tslint-config-oberon",
+        "tslint-config-prettier"
+    ],
+    "rules": {
+        "interface-name": false
+    }
+}

@@ -1,0 +1,19 @@
+body {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: auto;
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none;
+}
+
+.block {
+    min-width: 1700px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 20vh;
+    font-family: sans-serif;
+}

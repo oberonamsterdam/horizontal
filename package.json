@@ -10,7 +10,8 @@
         "build:lib": "tsc --project .",
         "build:toc": "doctoc --notitle README.md",
         "clean": "rimraf dist",
-        "examples": "parcel build \"examples/**.html\" --no-content-hash --out-dir=\"dist/examples\""
+        "examples": "parcel build \"examples/**.html\" --out-dir=\"dist/examples\"",
+        "examples:dev": "parcel serve \"examples/**.html\""
     },
     "repository": {
         "type": "git",

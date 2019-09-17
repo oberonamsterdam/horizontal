@@ -75,7 +75,7 @@ Add the recommended CSS to your container:
 If you're looking for a react hook, you can skip this and check below.
 
 - `new HorizontalScroll()`  
-First argument is a optional [Options](src/ object.
+First argument is an optional [Options](src/index.ts#L7-L10) object.
 
 - `horizontal.on('scroll', fn)`  
 Listen to scroll events.   

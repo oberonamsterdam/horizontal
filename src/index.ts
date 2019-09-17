@@ -14,6 +14,8 @@ export default class HorizontalScroll extends EventEmitter {
     springSystem!: SpringSystem;
     spring!: Spring;
     container!: HTMLElement;
+    containerIsIntersecting: boolean = false;
+    observer: IntersectionObserver | null = null;
 
     /**
      * Initialize a new horizontal scroll instance.
@@ -33,8 +35,23 @@ export default class HorizontalScroll extends EventEmitter {
 
         // bind events
         this.container = container;
-        container.addEventListener('wheel', this.wheel);
-        container.addEventListener('keydown', this.keydown);
+        this.container.addEventListener('wheel', this.wheel);
+        document.addEventListener('keydown', this.keydown);
+
+        // set up interaction observer
+        if (this.container !== document.documentElement) {
+            if ('IntersectionObserver' in window) {
+                this.observer = new IntersectionObserver(([entry]) => {
+                    this.containerIsIntersecting = entry.isIntersecting;
+                });
+                this.observer.observe(container);
+            } else {
+                // tslint:disable-next-line:no-console
+                console.warn(
+                    '[horizontal-scroll] WARN: IntersectionObserver not available, assuming key navigation is always applicable to your container.'
+                );
+            }
+        }
 
         // init spring
         this.springSystem = new SpringSystem();
@@ -57,10 +74,14 @@ export default class HorizontalScroll extends EventEmitter {
         }
 
         this.container.removeEventListener('wheel', this.wheel);
-        this.container.removeEventListener('keydown', this.keydown);
+        document.removeEventListener('keydown', this.keydown);
 
         this.spring.destroy();
         this.springSystem.removeAllListeners();
+
+        if (this.observer) {
+            this.observer.disconnect();
+        }
     }
 
     private wheel = (e: WheelEvent) => {
@@ -91,20 +112,35 @@ export default class HorizontalScroll extends EventEmitter {
             } else {
                 this.spring.setEndValue(distance);
             }
+
+            e.preventDefault();
         }
     };
 
     private keydown = (e: KeyboardEvent) => {
+        // only listen to key events if the container actually is in view
+        if (this.observer && !this.containerIsIntersecting) {
+            return;
+        }
+
         const target = e.target as HTMLUnknownElement | null;
-        let scrollValue = window.pageXOffset;
+
+        // if any other elements are focused, we'll respect that
+        if (target !== document.body) {
+            return;
+        }
+
+        let scrollValue = this.container.scrollLeft;
+        const max = this.container.scrollWidth - this.container.clientWidth;
+
         let prevent = true;
-        const targetType = target && target.nodeName.toLowerCase();
+
         switch (e.code) {
             case 'Home':
                 scrollValue = 0;
                 break;
             case 'End':
-                scrollValue = this.container.scrollWidth - this.container.clientWidth;
+                scrollValue = max;
                 break;
             case 'ArrowUp':
                 scrollValue -= SCROLL_AMOUNT;
@@ -117,15 +153,20 @@ export default class HorizontalScroll extends EventEmitter {
                 break;
             case 'PageDown':
             case 'Space':
-                // TODO: this could be more elegant.
-                if (targetType === 'textarea' || targetType === 'input') {
-                    return;
-                }
                 scrollValue += SCROLL_AMOUNT_STEP;
                 break;
             default:
                 prevent = false;
                 break;
+        }
+
+        // correct scroll value if it's out of bounds
+        scrollValue = Math.max(scrollValue, 0);
+        scrollValue = Math.min(scrollValue, max);
+
+        // if nothing changed, do nothing
+        if (scrollValue === this.spring.getEndValue()) {
+            return;
         }
 
         if (prevent) {

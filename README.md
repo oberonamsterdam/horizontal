@@ -65,10 +65,20 @@ There are some minor downsides to this approach:
 
 ### Add CSS
 
-Add the recommended CSS to your container:
+Add the recommended CSS to your container.  
+Your container will be `body` if not specified on initialisation.
 
 ```css
-// todo
+.container {
+    overflow-y: hidden;
+    overflow-x: auto;
+    /* prevents unwanted gestures and bounce effects */
+    overscroll-behavior: none;
+    
+    /* vendor specific hacks to hide scrollbars */
+    overflow: -moz-scrollbars-none;
+    -webkit-overflow-scrolling: touch;
+}
 ```
 
 ### API

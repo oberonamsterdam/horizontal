@@ -2,16 +2,27 @@
     box-sizing: border-box;
 }
 
+html {
+    /* webkit specific hack to hide scrollbars */
+    -webkit-overflow-scrolling: touch;
+}
+
 body, .container {
     display: flex;
-    overflow-y: hidden;
-    overflow-x: auto;
     margin: 0;
     padding: 0;
-    overscroll-behavior: none;
     font-family: sans-serif;
     background: #ffff00;
     height: 100vh;
+
+    overflow-y: hidden;
+    overflow-x: auto;
+
+    /* prevents unwanted gestures and bounce effects */
+    overscroll-behavior: none;
+
+    /* mozilla specific hack to hide scrollbars */
+    overflow: -moz-scrollbars-none;
 }
 
 body.with-container {
@@ -26,11 +37,13 @@ body.with-container > * {
 .container {
     display: flex;
     flex: 1;
+    min-height: 400px;
+    height: 60vh;
 }
 
 .block {
-    min-width: 1700px;
-    height: 100vh;
+    min-width: 80%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;

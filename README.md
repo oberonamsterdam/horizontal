@@ -1,4 +1,4 @@
-# `@oberonamsterdam/horizontal`
+![](https://jari.lol/7JqTxsErJS.png)
 
 Framework agnostic plug and play horizontal scrolling without tricks.
 

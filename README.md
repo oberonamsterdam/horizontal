@@ -27,6 +27,7 @@ See [motivation](#motivation) for more clarification - summed up:
     - Link anchors will function as normally
 - **Keyboard scroll** with configurable step amounts. (arrow keys, page up/down, space, etc)  
 - Scroll navigation by keyboard is animated ('smooth') and respects inertia.   
+- Make the entire viewport scrollable, or just a container.
 - **React hook**  
 A optional `useHorizontal` react hook under `@oberonamsterdam/horizontal/hook` is available.  
 - Typescript typings.

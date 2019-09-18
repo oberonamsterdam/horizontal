@@ -1,4 +1,4 @@
-![](https://jari.lol/7JqTxsErJS.png)
+<img src="https://jari.lol/7JqTxsErJS.png" width="350">
 
 Framework agnostic plug and play horizontal scrolling without tricks.
 

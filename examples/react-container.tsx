@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { render } from 'react-dom';
 
 const Example = () => {
+    // I'd prefer to use useRef, but we need a rerender to be triggered
     const [container, setContainer] = useState<HTMLDivElement | null>(null);
 
     useHorizontal({ container: container || undefined });

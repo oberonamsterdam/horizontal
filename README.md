@@ -124,4 +124,11 @@ new HorizontalScroll();
 
 ## Examples
 
-See [examples](examples) directory.
+- [Vanilla (viewport)](https://horizontal-scroll.netlify.com/vanilla.html)    
+  [Source](examples/vanilla.html)
+- [Vanilla (w/container)](https://horizontal-scroll.netlify.com/vanilla-container.html)    
+  [Source](examples/vanilla-container.html)
+- [React (viewport)](https://horizontal-scroll.netlify.com/react.html)    
+  [Source](examples/react.html)
+- [React (w/container)](https://horizontal-scroll.netlify.com/react-container.html)    
+  [Source](examples/react-container.html)

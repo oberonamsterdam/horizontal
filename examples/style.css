@@ -22,7 +22,7 @@ body, .container {
     overscroll-behavior: none;
 
     /* mozilla specific hack to hide scrollbars */
-    overflow: -moz-scrollbars-none;
+    overflow-x: -moz-scrollbars-none;
 }
 
 body.with-container {
@@ -42,13 +42,13 @@ body.with-container > * {
 }
 
 .block {
-    min-width: 80%;
+    min-width: 60%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 20vh;
+    font-size: 32px;
 
     background: #013dff;
     color: #fff;

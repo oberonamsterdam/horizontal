@@ -11,7 +11,7 @@ const useHorizontal = (options?: Options) => {
                 horizontal.current.destroy();
             }
         };
-    }, []);
+    }, [options]);
 };
 
 export default useHorizontal;

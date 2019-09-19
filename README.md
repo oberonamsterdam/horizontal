@@ -84,7 +84,8 @@ Your container will be `body` if not specified on initialisation.
 ### API
 If you're looking for a react hook, you can skip this and check below.
 
-- `new HorizontalScroll()`  
+- `const horizontal = new HorizontalScroll()`  
+Initializes a new instance of HorizontalScroll.  
 First argument is an optional [Options](src/index.ts#L7-L10) object.
 
 - `horizontal.on('scroll', fn)`  

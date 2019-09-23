@@ -40,17 +40,16 @@ npm i @oberon-amsterdam/horizontal
 ### Motivation
 
 There are a couple similar packages and articles like for example [horizontal-scroll](https://github.com/corentinfardeau/horizontal-scroll) that appear to be doing the do the same thing as this package.  
-However, what separates this package from the rest is that it **doesn't do any translateX tricks**, the actual scrolling is done by the browser with CSS.  
+However, what separates this package from the rest is that it **doesn't do any translateX tricks**, the actual scrolling is still done by the browser itself.  
   
-Because users will still use their normal means of navigating through a website,  
-We will catch mouse wheel and keyboard events and translate them to the X-axis - this is essentially all that this library does.
+Because users will use their normal means of navigating through a website, we will catch mouse wheel and keyboard events and translate them to the X-axis - this is essentially all that this library does.
   
 This results in the following advantages: 
 
 - Normal X-axis scrolling is kept intact and won't be interfered with (e.g. touch devices/pads, magic mouses, you name it).  
 This yields in better performance (no JS is required for this in the first place) and less bugs (we're not 'faking' anything).
-- Scroll position will remain intact between pages because it's handled by the browser.  
-- Normal browser behaviour such as #anchors will work as normal.  
+- Scroll position will remain intact between navigations because it's handled by the browser.  
+- Normal browser behaviour like #anchors will work as normal.  
 - Instead of making your entire page content hardware accelerated (meaning the user's device has to render the entire page, even if it's outside of the viewport),  
 browsers can use their usual optimisations they would also use for vertically scrolled pages.
 - Accessibility: using tab to traverse the site (like many users with disabilities do) is impossible if you're using `translateX` tricks. 
@@ -89,7 +88,8 @@ Your container will be `body` if not specified on initialisation.
 ### API
 If you're looking for a react hook, you can skip this and check below.
 
-- `new HorizontalScroll()`  
+- `const horizontal = new HorizontalScroll()`  
+Initializes a new instance of HorizontalScroll.  
 First argument is an optional [Options](src/index.ts#L7-L10) object.
 
 - `horizontal.on('scroll', fn)`  

@@ -1,6 +1,6 @@
 {
-    "name": "@oberonamsterdam/horizontal",
-    "version": "1.0.0",
+    "name": "@oberon-amsterdam/horizontal",
+    "version": "1.0.0-beta.1",
     "description": "Plug and play horizontal scrolling",
     "main": "dist/index.js",
     "scripts": {

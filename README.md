@@ -29,12 +29,12 @@ See [motivation](#motivation) for more clarification - summed up:
 - Scroll navigation by keyboard is animated ('smooth') and respects inertia.   
 - Make the entire viewport scrollable, or just a container.
 - **React hook**  
-A optional `useHorizontal` react hook under `@oberonamsterdam/horizontal/hook` is available.  
+A optional `useHorizontal` react hook under `@oberon-amsterdam/horizontal/hook` is available.  
 - Typescript typings.
 
 ### Install
 ```bash
-npm i @oberonamsterdam/horizontal
+npm i @oberon-amsterdam/horizontal
 ```
 
 ### Motivation
@@ -57,10 +57,10 @@ browsers can use their usual optimisations they would also use for vertically sc
 
 To sum it up, because this is not a simulated scroll, a lot of the default stuff involving browser scrolling that you expect to work, will work.
 
-There are some minor downsides to this approach:
+There is one downside to this approach:  
 
-- You will need to set some additional CSS on your container.   
-**The lib will not do this for you.**
+- Currently, there is no official way to hide scrollbars.   
+However: all browsers have vendor specific workarounds for this.  
 
 ## Usage
 
@@ -77,8 +77,12 @@ Your container will be `body` if not specified on initialisation.
     overscroll-behavior: none;
     
     /* vendor specific hacks to hide scrollbars */
-    overflow: -moz-scrollbars-none;
-    -webkit-overflow-scrolling: touch;
+    overflow-x: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+}
+
+.container::-webkit-scrollbar {
+    display: none;
 }
 ```
 
@@ -104,7 +108,7 @@ Arguments passed to the hook will be passed on to the constructor.
 See [API](#api) section.
 
 ```js
-import useHorizontal from '@oberonamsterdam/horizontal/hook';
+import useHorizontal from '@oberon-amsterdam/horizontal/hook';
 
 const Component = () => {
     useHorizontal();
@@ -117,7 +121,7 @@ const Component = () => {
 
 Albeit not recommended, you can use HorizontalScroll as a global:  
 ```
-import '@oberonamsterdam/horizontal/global';
+import '@oberon-amsterdam/horizontal/global';
 
 new HorizontalScroll();
 ```

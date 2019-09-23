@@ -1,3 +1,5 @@
 src/
 examples/
 dist/examples/
+.cache/
+.idea/

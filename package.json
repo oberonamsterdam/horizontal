@@ -1,6 +1,6 @@
 {
     "name": "@oberon-amsterdam/horizontal",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0-beta.2",
     "description": "Plug and play horizontal scrolling",
     "main": "dist/index.js",
     "scripts": {
@@ -9,9 +9,7 @@
         "build": "npm run clean && run-s build:*",
         "build:lib": "tsc --project .",
         "build:toc": "doctoc --notitle README.md",
-        "clean": "rimraf dist",
-        "examples": "parcel build \"examples/**.html\" --out-dir=\"dist/examples\"",
-        "examples:dev": "parcel serve \"examples/**.html\""
+        "clean": "rimraf dist"
     },
     "repository": {
         "type": "git",

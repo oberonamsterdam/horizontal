@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "outDir": "dist",
+        "target": "es5",
+        "rootDir": "src",
+        "downlevelIteration": true,
+        "lib": ["es6", "dom", "esnext.asynciterable", "es7", "es2018"],
+        "sourceMap": true,
+        "jsx": "preserve",
+        "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "suppressImplicitAnyIndexErrors": false,
+        "noUnusedLocals": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "declaration": true
+    },
+    "exclude": ["examples", "dist"]
+}

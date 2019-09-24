@@ -2,11 +2,6 @@
     box-sizing: border-box;
 }
 
-html {
-    /* webkit specific hack to hide scrollbars */
-    -webkit-overflow-scrolling: touch;
-}
-
 body, .container {
     display: flex;
     margin: 0;
@@ -14,15 +9,6 @@ body, .container {
     font-family: sans-serif;
     background: #ffff00;
     height: 100vh;
-
-    overflow-y: hidden;
-    overflow-x: auto;
-
-    /* prevents unwanted gestures and bounce effects */
-    overscroll-behavior: none;
-
-    /* mozilla specific hack to hide scrollbars */
-    overflow-x: -moz-scrollbars-none;
 }
 
 body.with-container {

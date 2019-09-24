@@ -8,14 +8,24 @@ export interface Options {
     scrollAmount?: number;
     scrollAmountStep?: number;
     container?: HTMLElement;
+    showScrollbars?: boolean;
+}
+
+declare global {
+    interface CSSStyleDeclaration {
+        overscrollBehaviorX: string;
+        overscrollBehaviorY: string;
+    }
 }
 
 export default class HorizontalScroll extends EventEmitter {
-    springSystem!: SpringSystem;
-    spring!: Spring;
-    container!: HTMLElement;
-    containerIsIntersecting: boolean = false;
-    observer: IntersectionObserver | null = null;
+    private springSystem!: SpringSystem;
+    private spring!: Spring;
+    private container!: HTMLElement;
+    private containerIsIntersecting: boolean = false;
+    private observer: IntersectionObserver | null = null;
+    private style: HTMLStyleElement | null = null;
+    private cssClass = `__horizontal-container-` + Math.round(Math.random() * 100000);
 
     /**
      * Initialize a new horizontal scroll instance.
@@ -26,6 +36,7 @@ export default class HorizontalScroll extends EventEmitter {
         scrollAmount = SCROLL_AMOUNT,
         scrollAmountStep = SCROLL_AMOUNT_STEP,
         container = document.documentElement,
+        showScrollbars = false,
     }: Options = {}) {
         super();
 
@@ -44,12 +55,45 @@ export default class HorizontalScroll extends EventEmitter {
                 this.observer = new IntersectionObserver(([entry]) => {
                     this.containerIsIntersecting = entry.isIntersecting;
                 });
-                this.observer.observe(container);
+                this.observer.observe(this.container);
             } else {
                 // tslint:disable-next-line:no-console
                 console.warn(
                     '[horizontal-scroll] WARN: IntersectionObserver not available, assuming key navigation is always applicable to your container.'
                 );
+            }
+        }
+
+        // add CSS to hide scrollbars
+        if (!showScrollbars) {
+            this.container.classList.add(this.cssClass);
+            this.style = document.createElement('style');
+            document.head.appendChild(this.style!);
+
+            const sheet = this.style!.sheet as CSSStyleSheet;
+
+            if (sheet) {
+                sheet.insertRule(
+                    `
+                        .${this.cssClass} {
+                            overflow-y: hidden;
+                            overflow-x: auto;
+
+                            /* prevents unwanted gestures and bounce effects */
+                            overscroll-behavior: auto;
+
+                            /* vendor specific hacks to hide scrollbars */
+                            scrollbar-width: none;
+                            -ms-overflow-style: none;
+                        }
+                    `
+                );
+
+                let webkitCss = `::-webkit-scrollbar { display: none; }`;
+                if (this.container !== document.documentElement) {
+                    webkitCss = `.${this.cssClass}` + webkitCss;
+                }
+                sheet.insertRule(webkitCss);
             }
         }
 
@@ -63,9 +107,14 @@ export default class HorizontalScroll extends EventEmitter {
                 const value = currSpring.getCurrentValue();
                 this.emit('scroll', value);
 
-                this.container.scrollLeft = currSpring.getCurrentValue();
+                // disallow gestures on the vertical axis. also disallow on horizontal when we've scrolled
+                this.container.style.overscrollBehaviorY = 'none';
+                this.container.style.overscrollBehaviorX = value > 0 ? 'none' : 'auto';
+
+                this.container.scrollLeft = value;
             },
         });
+        this.spring.notifyPositionUpdated();
     }
 
     destroy() {
@@ -75,6 +124,10 @@ export default class HorizontalScroll extends EventEmitter {
 
         this.container.removeEventListener('wheel', this.wheel);
         document.removeEventListener('keydown', this.keydown);
+
+        if (this.style) {
+            this.style.remove();
+        }
 
         this.spring.destroy();
         this.springSystem.removeAllListeners();

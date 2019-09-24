@@ -10,7 +10,6 @@ Framework agnostic plug and play horizontal scrolling without tricks.
   - [Install](#install)
   - [Motivation](#motivation)
 - [Usage](#usage)
-  - [Add CSS](#add-css)
   - [API](#api)
   - [React hook](#react-hook)
   - [As a global](#as-a-global)
@@ -59,31 +58,11 @@ To sum it up, because this is not a simulated scroll, a lot of the default stuff
 There is one downside to this approach:  
 
 - Currently, there is no official way to hide scrollbars.   
-However: all browsers have vendor specific workarounds for this.  
+However: all browsers have vendor specific workarounds for this (that the library automatically applies).  
 
 ## Usage
 
-### Add CSS
-
-Add the recommended CSS to your container.  
-Your container will be `body` if not specified on initialisation.
-
-```css
-.container {
-    overflow-y: hidden;
-    overflow-x: auto;
-    /* prevents unwanted gestures and bounce effects */
-    overscroll-behavior: none;
-    
-    /* vendor specific hacks to hide scrollbars */
-    overflow-x: -moz-scrollbars-none;
-    -ms-overflow-style: none;
-}
-
-.container::-webkit-scrollbar {
-    display: none;
-}
-```
+TODO: example snippets & codesandbox links
 
 ### API
 If you're looking for a react hook, you can skip this and check below.
@@ -91,9 +70,24 @@ If you're looking for a react hook, you can skip this and check below.
 - `const horizontal = new HorizontalScroll()`  
 Initializes a new instance of HorizontalScroll.  
 First argument is an optional [Options](src/index.ts#L7-L10) object.
+Here are the defaults and a quick explainer for each option:  
+```ts
+    new HorizontalScroll({
+        // by default horizontal will use the entire viewport as a container.
+        // optionally, you can enable horizontalscroll on a container only by passing a HTMLElement here
+        container: document.documentElement,
+        // if true, horizontal will not add additional CSS to hide container scrollbars 
+        showScrollbars: false,
+    
+        // amount of px to scroll when using arrow keys
+        scrollAmount: 100,
+        // amount of px to scroll when 'stepping' (pagedown/up, space, etc)
+        scrollAmountStep: 1000,
+    })
+```
 
 - `horizontal.on('scroll', fn)`  
-Listen to scroll events.   
+Optionally listen to scroll events.   
 It is recommended you bind to this instead of adding your own eventlisteners to `window` because this will tell you the scroll value after `horizontal`'s translations.
 
 - `horizontal.off('scroll', fn)`  

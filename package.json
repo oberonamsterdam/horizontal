@@ -1,15 +1,15 @@
 {
     "name": "@oberon-amsterdam/horizontal",
-    "version": "1.0.0-beta.2",
+    "version": "1.0.0-beta.3",
     "description": "Plug and play horizontal scrolling",
-    "main": "dist/index.js",
+    "main": "index.js",
     "scripts": {
         "prepublishOnly": "npm run build",
         "typecheck": "tsc --project . --noEmit",
         "build": "npm run clean && run-s build:*",
         "build:lib": "tsc --project .",
         "build:toc": "doctoc --notitle README.md",
-        "clean": "rimraf dist"
+        "clean": "rimraf *.js *.d.ts *.js.*"
     },
     "repository": {
         "type": "git",

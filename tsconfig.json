@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "outDir": "dist",
+        "outDir": ".",
         "target": "es5",
         "rootDir": "src",
         "downlevelIteration": true,
@@ -22,5 +22,5 @@
         "strict": true,
         "declaration": true
     },
-    "exclude": ["examples", "dist"]
+    "exclude": ["examples", "dist", "*.d.ts"]
 }

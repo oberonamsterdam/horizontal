@@ -5,9 +5,10 @@
         "start": "parcel \"**.html\"",
         "build": "parcel build \"**.html\""
     },
+    "main": "vanilla.html",
     "dependencies": {},
     "devDependencies": {
         "parcel-bundler": "^1.6.1",
-        "@oberon-amsterdam/horizontal": "^1.0.0-beta.2"
+        "@oberon-amsterdam/horizontal": "^1.0.0-beta.3"
     }
 }

@@ -1,4 +1,4 @@
-import useHorizontal from '../src/hook';
+import useHorizontal from '@oberon-amsterdam/horizontal/hook';
 import * as React from 'react';
 import { render } from 'react-dom';
 

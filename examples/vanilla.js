@@ -1,3 +1,3 @@
-import HorizontalScroll from '../src/';
+import HorizontalScroll from '@oberon-amsterdam/horizontal';
 
 new HorizontalScroll();

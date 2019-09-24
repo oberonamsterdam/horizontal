@@ -6,18 +6,19 @@ Framework agnostic plug and play horizontal scrolling without tricks.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-  - [Features](#features)
-  - [Install](#install)
-  - [Motivation](#motivation)
-- [Usage](#usage)
-  - [API](#api)
-  - [React hook](#react-hook)
-  - [As a global](#as-a-global)
-- [Examples](#examples)
+- [Features](#features)
+- [Install](#install)
+- [Example usage:](#example-usage)
+  - [In it's simplest form](#in-its-simplest-form)
+  - [Using a container](#using-a-container)
+  - [React Hook](#react-hook)
+- [Motivation](#motivation)
+- [API](#api)
+  - [Using horizontal as a global](#using-horizontal-as-a-global)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-### Features 
+## Features 
 
 - **Real X-axis scrolling**, no `translateX` tricks to 'simulate' scrolling.  
 See [motivation](#motivation) for more clarification - summed up:  
@@ -31,12 +32,58 @@ See [motivation](#motivation) for more clarification - summed up:
 A optional `useHorizontal` react hook under `@oberon-amsterdam/horizontal/hook` is available.  
 - Typescript typings.
 
-### Install
+## Install
 ```bash
 npm i @oberon-amsterdam/horizontal
 ```
 
-### Motivation
+## Example usage:
+
+### In it's simplest form  
+Assumes the entire viewport needs to be scrolled.  
+```js
+import HorizontalScroll from '@oberon-amsterdam/horizontal';
+
+new HorizontalScroll();
+```
+[Edit on CodeSandbox](https://codesandbox.io/s/github/oberonamsterdam/horizontal/tree/master/examples?module=/vanilla.js&initialpath=vanilla.html)  
+
+### Using a container  
+```js
+import HorizontalScroll from '@oberon-amsterdam/horizontal';
+
+new HorizontalScroll({ container: document.querySelector('.container') });
+```
+[Edit on CodeSandbox](https://codesandbox.io/s/github/oberonamsterdam/horizontal/tree/master/examples?module=/vanilla-container.js&initialpath=vanilla-container.html)
+
+### React Hook  
+```js
+import useHorizontal from '@oberon-amsterdam/horizontal/hook';
+import * as React from 'react';
+import { render } from 'react-dom';
+
+const Example = () => {
+    useHorizontal();
+
+    return (
+        <React.Fragment>
+            <div className="block">Hello, scroll further</div>
+
+            <div className="block">Why hello there</div>
+
+            <div className="block">
+                <a href="react.html">Whee</a>
+            </div>
+        </React.Fragment>
+    );
+};
+
+render(<Example />, document.body);
+```
+[Edit on CodeSandbox](https://codesandbox.io/s/github/oberonamsterdam/horizontal/tree/master/examples?module=/react.jsx&initialpath=react.html)    
+[See react example with container](https://codesandbox.io/s/github/oberonamsterdam/horizontal/tree/master/examples?module=/react-container.jsx&initialpath=react-container.html)  
+
+## Motivation
 
 There are a couple similar packages and articles like for example [horizontal-scroll](https://github.com/corentinfardeau/horizontal-scroll) that appear to be doing the do the same thing as this package.  
 However, what separates this package from the rest is that it **doesn't do any translateX tricks**, the actual scrolling is still done by the browser itself.  
@@ -60,13 +107,7 @@ There is one downside to this approach:
 - Currently, there is no official way to hide scrollbars.   
 However: all browsers have vendor specific workarounds for this (that the library automatically applies).  
 
-## Usage
-
-TODO: example snippets & codesandbox links
-
-### API
-If you're looking for a react hook, you can skip this and check below.
-
+## API
 - `const horizontal = new HorizontalScroll()`  
 Initializes a new instance of HorizontalScroll.  
 First argument is an optional [Options](src/index.ts#L7-L10) object.
@@ -97,21 +138,7 @@ Remove a event listener.
 - `horizontal.destroy()`  
 Removes events handlers.
 
-### React hook
-Arguments passed to the hook will be passed on to the constructor.  
-See [API](#api) section.
-
-```js
-import useHorizontal from '@oberon-amsterdam/horizontal/hook';
-
-const Component = () => {
-    useHorizontal();
-    
-    ...
-}
-```
-
-### As a global
+### Using horizontal as a global
 
 Albeit not recommended, you can use HorizontalScroll as a global:  
 ```
@@ -119,16 +146,3 @@ import '@oberon-amsterdam/horizontal/global';
 
 new HorizontalScroll();
 ```
-
-## Examples
-
-- [Vanilla (viewport)](https://horizontal-scroll.netlify.com/vanilla.html)    
-  - [Source (JS)](examples/vanilla.js)
-  - [Source (HTML)](examples/vanilla.html)
-- [Vanilla (w/container)](https://horizontal-scroll.netlify.com/vanilla-container.html)    
-  - [Source (JS)](examples/vanilla-container.js)
-  - [Source (HTML)](examples/vanilla-container.html)
-- [React (viewport)](https://horizontal-scroll.netlify.com/react.html)    
-  - [Source](examples/react.tsx)
-- [React (w/container)](https://horizontal-scroll.netlify.com/react-container.html)    
-  - [Source](examples/react-container.tsx)

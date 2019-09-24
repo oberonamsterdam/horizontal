@@ -8,7 +8,7 @@ Framework agnostic plug and play horizontal scrolling without tricks.
 
 - [Features](#features)
 - [Install](#install)
-- [Example usage:](#example-usage)
+- [Example usage](#example-usage)
   - [In it's simplest form](#in-its-simplest-form)
   - [Using a container](#using-a-container)
   - [React Hook](#react-hook)
@@ -37,7 +37,7 @@ A optional `useHorizontal` react hook under `@oberon-amsterdam/horizontal/hook` 
 npm i @oberon-amsterdam/horizontal
 ```
 
-## Example usage:
+## Example usage
 
 ### In it's simplest form  
 Assumes the entire viewport needs to be scrolled.  

@@ -129,6 +129,8 @@ export default class HorizontalScroll extends EventEmitter {
             this.style.remove();
         }
 
+        this.container.classList.remove(this.cssClass);
+
         this.spring.destroy();
         this.springSystem.removeAllListeners();
 

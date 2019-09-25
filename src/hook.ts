@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import HorizontalScroll, { Options } from './index';
 
-const useHorizontal = (options?: Options) => {
+const useHorizontal = (options: Options = {}) => {
     const horizontal = useRef<HorizontalScroll>();
     useEffect(() => {
         horizontal.current = new HorizontalScroll(options);
@@ -11,7 +11,7 @@ const useHorizontal = (options?: Options) => {
                 horizontal.current.destroy();
             }
         };
-    }, [options]);
+    }, [options.container, options.scrollAmount, options.scrollAmountStep, options.showScrollbars]);
 };
 
 export default useHorizontal;

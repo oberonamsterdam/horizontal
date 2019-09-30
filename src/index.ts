@@ -21,11 +21,16 @@ declare global {
 export default class HorizontalScroll extends EventEmitter {
     private springSystem!: SpringSystem;
     private spring!: Spring;
+
     private container!: HTMLElement;
-    private containerIsIntersecting: boolean = false;
     private observer: IntersectionObserver | null = null;
+    private containerIsIntersecting: boolean = false;
+
     private style: HTMLStyleElement | null = null;
     private cssClass = `__horizontal-container-` + Math.round(Math.random() * 100000);
+
+    // ignore keydown events when any of these elements are focused
+    private blacklist: Array<keyof JSX.IntrinsicElements> = ['input', 'select', 'textarea'];
 
     /**
      * Initialize a new horizontal scroll instance.
@@ -167,8 +172,6 @@ export default class HorizontalScroll extends EventEmitter {
             } else {
                 this.spring.setEndValue(distance);
             }
-
-            e.preventDefault();
         }
     };
 
@@ -180,8 +183,12 @@ export default class HorizontalScroll extends EventEmitter {
 
         const target = e.target as HTMLUnknownElement | null;
 
-        // if any other elements are focused, we'll respect that
-        if (target !== document.body) {
+        // if any blacklisted elements are focused, we'll won't handle this keydown.
+        if (
+            target &&
+            target !== document.body &&
+            this.blacklist.includes(target.nodeName.toLowerCase() as keyof JSX.IntrinsicElements)
+        ) {
             return;
         }
 
@@ -229,6 +236,9 @@ export default class HorizontalScroll extends EventEmitter {
         }
 
         if (this.spring) {
+            if (this.spring.isAtRest()) {
+                this.spring.setCurrentValue(this.container.scrollLeft);
+            }
             this.spring.setEndValue(scrollValue);
         }
     };

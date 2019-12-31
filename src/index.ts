@@ -217,19 +217,15 @@ export default class HorizontalScroll extends EventEmitter {
             case 'ArrowUp':
                 if (this.preventVerticalScroll) {
                     prevent = true;
-                    break;
-                } else {
-                    scrollValue -= SCROLL_AMOUNT;
-                    break;
                 }
+                scrollValue -= SCROLL_AMOUNT;
+                break;
             case 'ArrowDown':
                 if (this.preventVerticalScroll) {
                     prevent = true;
-                    break;
-                } else {
-                    scrollValue += SCROLL_AMOUNT;
-                    break;
                 }
+                scrollValue += SCROLL_AMOUNT;
+                break;
             case 'ArrowLeft':
                 scrollValue -= SCROLL_AMOUNT;
                 break;

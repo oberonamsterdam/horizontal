@@ -7,7 +7,7 @@
     },
     "main": "vanilla.html",
     "dependencies": {
-        "@oberon-amsterdam/horizontal": "^1.0.0",
+        "@oberon-amsterdam/horizontal": "../",
         "react": "^16.9.0",
         "react-dom": "^16.9.0"
     },

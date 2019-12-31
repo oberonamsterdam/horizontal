@@ -9,6 +9,7 @@ export interface Options {
     scrollAmountStep?: number;
     container?: HTMLElement;
     showScrollbars?: boolean;
+    preventVerticalScroll?: boolean;
 }
 
 declare global {
@@ -29,6 +30,8 @@ export default class HorizontalScroll extends EventEmitter {
     private style: HTMLStyleElement | null = null;
     private cssClass = `__horizontal-container-` + Math.round(Math.random() * 100000);
 
+    private preventVerticalScroll = false;
+
     // ignore keydown events when any of these elements are focused
     private blacklist: Array<keyof JSX.IntrinsicElements> = ['input', 'select', 'textarea'];
 
@@ -42,12 +45,15 @@ export default class HorizontalScroll extends EventEmitter {
         scrollAmountStep = SCROLL_AMOUNT_STEP,
         container = document.documentElement,
         showScrollbars = false,
+        preventVerticalScroll = false,
     }: Options = {}) {
         super();
 
         if (typeof container === 'undefined') {
             return;
         }
+
+        this.preventVerticalScroll = preventVerticalScroll;
 
         // bind events
         this.container = container;
@@ -149,6 +155,10 @@ export default class HorizontalScroll extends EventEmitter {
         const forward = !(angle < 0.675 && angle > -0.375);
         let offset = Math.sqrt(Math.pow(e.deltaX, 2) + Math.pow(e.deltaY, 2));
 
+        if (this.preventVerticalScroll) {
+            return;
+        }
+
         switch (e.deltaMode) {
             case WheelEvent.DOM_DELTA_LINE:
                 offset *= SCROLL_AMOUNT;
@@ -205,9 +215,25 @@ export default class HorizontalScroll extends EventEmitter {
                 scrollValue = max;
                 break;
             case 'ArrowUp':
+                if (this.preventVerticalScroll) {
+                    prevent = true;
+                    break;
+                } else {
+                    scrollValue -= SCROLL_AMOUNT;
+                    break;
+                }
+            case 'ArrowDown':
+                if (this.preventVerticalScroll) {
+                    prevent = true;
+                    break;
+                } else {
+                    scrollValue += SCROLL_AMOUNT;
+                    break;
+                }
+            case 'ArrowLeft':
                 scrollValue -= SCROLL_AMOUNT;
                 break;
-            case 'ArrowDown':
+            case 'ArrowRight':
                 scrollValue += SCROLL_AMOUNT;
                 break;
             case 'PageUp':

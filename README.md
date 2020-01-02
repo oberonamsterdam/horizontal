@@ -119,6 +119,9 @@ Here are the defaults and a quick explainer for each option:
         container: document.documentElement,
         // if true, horizontal will not add additional CSS to hide container scrollbars 
         showScrollbars: false,
+
+        // if true, scrolling up and down and using the up or down arrow key will prevent the user from scrolling.
+        preventVerticalScroll: false,
     
         // amount of px to scroll when using arrow keys
         scrollAmount: 100,

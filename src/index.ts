@@ -151,6 +151,7 @@ export default class HorizontalScroll extends EventEmitter {
     }
 
     private wheel = (e: WheelEvent) => {
+        e.preventDefault();
         const angle = Math.atan2(e.deltaY, e.deltaX) / Math.PI;
         const forward = !(angle < 0.675 && angle > -0.375);
         let offset = Math.sqrt(Math.pow(e.deltaX, 2) + Math.pow(e.deltaY, 2));

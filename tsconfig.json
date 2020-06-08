@@ -7,7 +7,6 @@
         "downlevelIteration": true,
         "lib": ["es6", "dom", "esnext.asynciterable", "es7", "es2018"],
         "sourceMap": true,
-        "jsx": "preserve",
         "moduleResolution": "node",
         "forceConsistentCasingInFileNames": true,
         "noImplicitReturns": true,
@@ -20,7 +19,14 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "strict": true,
-        "declaration": true
+        "declaration": true,
+        "baseUrl": "src",
+        "paths": {
+            "~*": ["./*"]
+        },
+        "jsx": "react"
     },
-    "exclude": ["examples", "*.d.ts"]
+    "exclude": ["examples", "*.d.ts"],
+
+    "include": ["src/**/*"]
 }

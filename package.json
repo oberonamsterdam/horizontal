@@ -51,6 +51,7 @@
         "lint-staged": "^9.2.5",
         "oberon-prettier-config": "^1.0.0",
         "parcel": "^1.12.3",
+        "parcel-bundler": "^1.12.4",
         "prettier": "^1.18.2",
         "react": "^16.9.0",
         "react-dom": "^16.9.0",

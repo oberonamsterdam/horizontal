@@ -27,6 +27,5 @@
         "jsx": "react"
     },
     "exclude": ["examples", "*.d.ts"],
-
-    "include": ["src/**/*"]
+    "include": ["src/*.ts"]
 }

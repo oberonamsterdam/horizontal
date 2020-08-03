@@ -8,6 +8,7 @@ Framework agnostic plug and play horizontal scrolling without tricks.
 
 - [Features](#features)
 - [Install](#install)
+  - [When using Horizontal as minify javascript](#minify)
 - [Example usage](#example-usage)
   - [In it's simplest form](#in-its-simplest-form)
   - [Using a container](#using-a-container)
@@ -36,6 +37,9 @@ A optional `useHorizontal` react hook under `@oberon-amsterdam/horizontal/hook` 
 ```bash
 npm i @oberon-amsterdam/horizontal
 ```
+
+### When using Horizontal as minify javascript
+Albeit not recommended, you can use HorizontalScroll as a minified javascript version, by importing it and then using it as normal. Just don't forget to install rebound in your package.json.  
 
 ## Example usage
 

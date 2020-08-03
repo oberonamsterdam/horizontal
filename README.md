@@ -8,7 +8,7 @@ Framework agnostic plug and play horizontal scrolling without tricks.
 
 - [Features](#features)
 - [Install](#install)
-  - [When using Horizontal as minify javascript](#minify)
+  - [When using Horizontal as minify javascript](#when-using-horizontal-as-minify-javascript)
 - [Example usage](#example-usage)
   - [In it's simplest form](#in-its-simplest-form)
   - [Using a container](#using-a-container)

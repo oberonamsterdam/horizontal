@@ -176,7 +176,7 @@ export default class HorizontalScroll extends EventEmitter {
         }
         const distance = Math.max(this.container.scrollLeft + offset, 0);
 
-        if (distance < this.container.scrollWidth - this.container.clientWidth) {
+        if (distance - SCROLL_AMOUNT < this.container.scrollWidth - this.container.clientWidth) {
             if (e.deltaMode === WheelEvent.DOM_DELTA_PIXEL) {
                 // force spring to new value & don't animate
                 this.spring.setCurrentValue(distance);

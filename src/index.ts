@@ -151,6 +151,8 @@ export default class HorizontalScroll extends EventEmitter {
     }
 
     private wheel = (e: WheelEvent) => {
+        if (e.ctrlKey) // Ignore scroll event if ctrl key pressed
+            return;
         e.preventDefault();
         const angle = Math.atan2(e.deltaY, e.deltaX) / Math.PI;
         const forward = !(angle < 0.675 && angle > -0.375);

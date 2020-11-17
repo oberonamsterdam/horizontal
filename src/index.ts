@@ -57,8 +57,12 @@ export default class HorizontalScroll extends EventEmitter {
 
         // bind events
         this.container = container;
-        this.container.addEventListener('wheel', this.wheel);
-        document.addEventListener('keydown', this.keydown);
+        this.container.addEventListener('wheel', this.wheel, {
+            passive: false,
+        });
+        document.addEventListener('keydown', this.keydown, {
+            passive: false,
+        });
 
         // set up interaction observer
         if (this.container !== document.documentElement) {

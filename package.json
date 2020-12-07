@@ -9,8 +9,7 @@
         "build": "npm run clean && run-s build:*",
         "build:lib": "tsc --project .",
         "build:toc": "doctoc --notitle README.md",
-        "clean": "rimraf *.js *.d.ts *.js.*",
-        "prepare": "npm run build"
+        "clean": "rimraf *.js *.d.ts *.js.*"
     },
     "repository": {
         "type": "git",

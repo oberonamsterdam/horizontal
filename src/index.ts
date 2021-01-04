@@ -35,6 +35,7 @@ export default class HorizontalScroll extends EventEmitter {
     // ignore keydown events when any of these elements are focused
     private blacklist: Array<keyof JSX.IntrinsicElements> = ['input', 'select', 'textarea'];
 
+    private scrollAmount: number
     /**
      * Initialize a new horizontal scroll instance.
      * Will immediately bind to container.
@@ -48,6 +49,8 @@ export default class HorizontalScroll extends EventEmitter {
         preventVerticalScroll = false,
     }: Options = {}) {
         super();
+
+        this.scrollAmount = scrollAmount
 
         if (typeof container === 'undefined') {
             return;
@@ -180,7 +183,7 @@ export default class HorizontalScroll extends EventEmitter {
         }
         const distance = Math.max(this.container.scrollLeft + offset, 0);
 
-        if (distance < this.container.scrollWidth - this.container.clientWidth) {
+        if (distance - this.scrollAmount < this.container.scrollWidth - this.container.clientWidth) {
             if (e.deltaMode === WheelEvent.DOM_DELTA_PIXEL) {
                 // force spring to new value & don't animate
                 this.spring.setCurrentValue(distance);

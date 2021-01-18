@@ -131,6 +131,9 @@ Here are the defaults and a quick explainer for each option:
         scrollAmount: 100,
         // amount of px to scroll when 'stepping' (pagedown/up, space, etc)
         scrollAmountStep: 1000,
+
+        // callback function which can be used to determine when the scrolling should be ignored (for example on key press)
+        ignoreScroll: null,
     })
 ```
 

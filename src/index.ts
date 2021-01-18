@@ -10,7 +10,10 @@ export interface Options {
     container?: HTMLElement;
     showScrollbars?: boolean;
     preventVerticalScroll?: boolean;
+    ignoreScroll?: Callback;
 }
+
+type Callback = (e: WheelEvent) => boolean;
 
 declare global {
     interface CSSStyleDeclaration {
@@ -31,11 +34,13 @@ export default class HorizontalScroll extends EventEmitter {
     private cssClass = `__horizontal-container-` + Math.round(Math.random() * 100000);
 
     private preventVerticalScroll = false;
+    private ignoreScroll: Callback | null = null;
 
     // ignore keydown events when any of these elements are focused
     private blacklist: Array<keyof JSX.IntrinsicElements> = ['input', 'select', 'textarea'];
 
-    private scrollAmount: number
+    private scrollAmount: number;
+
     /**
      * Initialize a new horizontal scroll instance.
      * Will immediately bind to container.
@@ -47,16 +52,20 @@ export default class HorizontalScroll extends EventEmitter {
         container = document.documentElement,
         showScrollbars = false,
         preventVerticalScroll = false,
+        ignoreScroll,
     }: Options = {}) {
         super();
 
-        this.scrollAmount = scrollAmount
+        this.scrollAmount = scrollAmount;
 
         if (typeof container === 'undefined') {
             return;
         }
 
         this.preventVerticalScroll = preventVerticalScroll;
+        if (ignoreScroll) {
+            this.ignoreScroll = ignoreScroll;
+        }
 
         // bind events
         this.container = container;
@@ -158,6 +167,10 @@ export default class HorizontalScroll extends EventEmitter {
     }
 
     private wheel = (e: WheelEvent) => {
+        if (this.ignoreScroll && this.ignoreScroll(e)) {
+            // Ignore scroll event if callback function says so.
+            return;
+        }
         e.preventDefault();
         const angle = Math.atan2(e.deltaY, e.deltaX) / Math.PI;
         const forward = !(angle < 0.675 && angle > -0.375);

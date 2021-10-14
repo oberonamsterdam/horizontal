@@ -40,6 +40,7 @@ export default class HorizontalScroll extends EventEmitter {
     private blacklist: Array<keyof JSX.IntrinsicElements> = ['input', 'select', 'textarea'];
 
     private scrollAmount: number;
+    private scrollAmountStep: number;
 
     /**
      * Initialize a new horizontal scroll instance.
@@ -57,6 +58,7 @@ export default class HorizontalScroll extends EventEmitter {
         super();
 
         this.scrollAmount = scrollAmount;
+        this.scrollAmountStep = scrollAmountStep;
 
         if (typeof container === 'undefined') {
             return;
@@ -182,10 +184,10 @@ export default class HorizontalScroll extends EventEmitter {
 
         switch (e.deltaMode) {
             case WheelEvent.DOM_DELTA_LINE:
-                offset *= SCROLL_AMOUNT;
+                offset *= this.scrollAmount;
                 break;
             case WheelEvent.DOM_DELTA_PAGE:
-                offset *= SCROLL_AMOUNT_STEP;
+                offset *= this.scrollAmountStep;
                 break;
             default:
                 break;
@@ -240,7 +242,7 @@ export default class HorizontalScroll extends EventEmitter {
                     prevent = true;
                     break;
                 } else {
-                    scrollValue -= SCROLL_AMOUNT;
+                    scrollValue -= this.scrollAmount;
                     break;
                 }
             case 'ArrowDown':
@@ -248,21 +250,21 @@ export default class HorizontalScroll extends EventEmitter {
                     prevent = true;
                     break;
                 } else {
-                    scrollValue += SCROLL_AMOUNT;
+                    scrollValue += this.scrollAmount;
                     break;
                 }
             case 'ArrowLeft':
-                scrollValue -= SCROLL_AMOUNT;
+                scrollValue -= this.scrollAmount;
                 break;
             case 'ArrowRight':
-                scrollValue += SCROLL_AMOUNT;
+                scrollValue += this.scrollAmount;
                 break;
             case 'PageUp':
-                scrollValue -= SCROLL_AMOUNT_STEP;
+                scrollValue -= this.scrollAmountStep;
                 break;
             case 'PageDown':
             case 'Space':
-                scrollValue += SCROLL_AMOUNT_STEP;
+                scrollValue += this.scrollAmountStep;
                 break;
             default:
                 prevent = false;
